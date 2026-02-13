@@ -1607,18 +1607,16 @@
         });
 
         // Also add click handler to the entire project card (except GitHub button)
-        document.querySelectorAll(".project-wrapper").forEach((wrapper) => {
-          wrapper.addEventListener("click", function (e) {
-            // Don't trigger if clicking on GitHub button
-            if (e.target.closest(".project-github-btn")) {
-              return;
-            }
+        document.querySelectorAll(".project-wrapper").forEach((card) => {
+          card.addEventListener("click", function (e) {
+            // Prevent if GitHub button was clicked
+            if (e.target.closest(".project-github-btn")) return;
 
-            // Optional: Add some visual feedback when clicking the card
-            this.style.transform = "scale(0.98)";
-            setTimeout(() => {
-              this.style.transform = "";
-            }, 150);
+            const githubBtn = this.querySelector(".project-github-btn");
+            if (githubBtn) {
+              window.open(githubBtn.href, "_blank", "noopener,noreferrer");
+              showToast("🚀 Opening GitHub repository...");
+            }
           });
         });
 
